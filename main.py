@@ -38,16 +38,16 @@ def parse_file(filename):
             data = line.split(sep='=', maxsplit=2) # split config names and vals
             
             if data[1].strip().isdigit(): # check if config val is an Int
-                config_data[data[0]] = int(data[1].strip())
+                config_data[data[0].strip()] = int(data[1].strip())
 
             elif isfloat(data[1].strip()):  # check if config val is a float
-                    config_data[data[0]] = float(data[1].strip())
+                    config_data[data[0].strip()] = float(data[1].strip())
 
             elif detect_bool(data[1].strip()): # check if config val needs to be converted to a Bool
-                config_data[data[0]] = convert_bool(data[1].strip())
+                config_data[data[0].strip()] = convert_bool(data[1].strip())
 
             else:
-                config_data[data[0]] = data[1].strip()
+                config_data[data[0].strip()] = data[1].strip()
 
     return config_data
  
@@ -63,7 +63,8 @@ def main():
         else:
             print('That file does not exist. Please try again.\n')
 
-    print(parsed_data)
+    for key, value in parsed_data.items():
+        print(f'{key} is set to: {value}')
 
 if __name__ == "__main__":
     main()
